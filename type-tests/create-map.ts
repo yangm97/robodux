@@ -2,7 +2,7 @@ import createMap from '../src/create-map';
 
 // testing no params
 const one = createMap({ name: 'SLICE' });
-// $ExpectType { add: (payload?: any) => Action<any, string>; set: (payload?: any) => Action<any, string>; remove: (payload: string[]) => Action<string[], string>; patch: (payload: PatchEntity<AnyState>) => Action<...>; reset: () => Action<...>; }
+// $ExpectType { add: (payload?: any) => Action<any, string>; set: (payload?: any) => Action<any, string>; remove: (payload: string[]) => Action<string[], string>; patch: (payload: PatchEntity<AnyState>) => Action<...>; merge: (payload: PatchEntity<...>) => Action<...>; reset: () => Action<...>; }
 one.actions;
 // $ExpectType Reducer<AnyState, Action<any, string>>
 one.reducer;
@@ -18,7 +18,7 @@ interface SliceState {
 }
 
 const two = createMap<SliceState>({ name: 'slice' });
-// $ExpectType { add: (payload: SliceState) => Action<SliceState, string>; set: (payload: SliceState) => Action<SliceState, string>; remove: (payload: string[]) => Action<...>; patch: (payload: PatchEntity<...>) => Action<...>; reset: () => Action<...>; }
+// $ExpectType { add: (payload: SliceState) => Action<SliceState, string>; set: (payload: SliceState) => Action<SliceState, string>; remove: (payload: string[]) => Action<...>; patch: (payload: PatchEntity<...>) => Action<...>; merge: (payload: PatchEntity<...>) => Action<...>; reset: () => Action<...>; }
 two.actions;
 // $ExpectType Reducer<SliceState, Action<any, string>>
 two.reducer;

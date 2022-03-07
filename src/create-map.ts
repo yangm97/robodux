@@ -102,6 +102,7 @@ interface MapActions<S> {
   set: S;
   remove: string[];
   patch: PatchEntity<S>;
+  merge: PatchEntity<S>;
   reset: never;
 }
 
