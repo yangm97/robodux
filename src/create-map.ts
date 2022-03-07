@@ -79,7 +79,7 @@ export function mapReducers<State extends AnyState>(
             const prop = (payload[id] as any)[key];
             if (Array.isArray(nextEntity[key])) {
               nextEntity[key] = [...nextEntity[key], ...prop];
-            } else if (Object == prop.constructor) {
+            } else if (prop != null && Object == prop.constructor) {
               nextEntity[key] = {
                 ...nextEntity[key],
                 ...prop,

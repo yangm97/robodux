@@ -98,4 +98,57 @@ describe('createMap', () => {
       expect(actual).toEqual({ '1': 'one', '2': 'two', '3': 'three' });
     });
   });
+
+  describe('merge', () => {
+    describe('when either prop is null', () => {
+      it('should null a prop', () => {
+        interface State {
+          [key: string]: { name: string; email: string | null };
+        }
+
+        const name = 'test';
+        const { reducer, actions } = createMap<State>({
+          name,
+        });
+        const state = deepFreeze({
+          1: { name: 'one', email: null },
+          2: { name: 'two', email: 'two@wild.com' },
+          3: { name: 'three', email: 'three@wild.com' },
+        });
+        const actual = reducer(
+          state,
+          actions.merge({ 2: { email: null } }),
+        );
+        expect(actual).toEqual({
+          1: { name: 'one', email: null },
+          2: { name: 'two', email: null },
+          3: { name: 'three', email: 'three@wild.com' },
+        });
+      });
+      it('should update a null prop', () => {
+        interface State {
+          [key: string]: { name: string; email: string | null };
+        }
+
+        const name = 'test';
+        const { reducer, actions } = createMap<State>({
+          name,
+        });
+        const state = deepFreeze({
+          1: { name: 'one', email: null },
+          2: { name: 'two', email: 'two@wild.com' },
+          3: { name: 'three', email: null },
+        });
+        const actual = reducer(
+          state,
+          actions.merge({ 1: { email: 'one@wild.com' } }),
+        );
+        expect(actual).toEqual({
+          1: { name: 'one', email: 'one@wild.com' },
+          2: { name: 'two', email: 'two@wild.com' },
+          3: { name: 'three', email: null },
+        });
+      });
+    });
+  });
 });
